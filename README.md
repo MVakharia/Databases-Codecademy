@@ -111,5 +111,106 @@ Popular option: Amazon Redshift.
 
 `CREATE` - Defines a new database object. 
 
+What is a **clause**?
 
+`TABLE` - Keyword used for defining, altering, or referencing tables:
 
+- `CREATE TABLE` - Creates a table. 
+- `ALTER TABLE` - Modifies an existing table. 
+- `DROP TABLE` - Deletes a table. 
+
+Create a new table named `cards`, with three attributes (headers): `id`, `name`, and `attribute`.
+```
+CREATE TABLE cards (
+   id INTEGER, 
+   name TEXT, 
+   attribute INTEGER
+);
+```
+
+`INSERT INTO table` - Inserts a new row into a table.
+
+`INTO` - Used with other keywords:
+
+- `SELECT... ...INTO` - Copies data from table(s) into a new table. 
+
+- `INSERT INTO` - Add data to existing table. 
+
+`VALUES` - Used with other keywords:
+
+- `INSERT INTO... ...VALUES` - Add data to a table.
+
+`ALTER` - Used with other keywords:
+
+- `ALTER TABLE tableName` - Modifies an existing table
+- `ALTER DATABASE` - Changes database-level settings
+- `ALTER SCHEMA` - Rename or transfer objects between schemas
+- `ALTER VIEW` - Modify or recompile a view.
+
+`ADD` - Used primarily with `ALTER TABLE`
+to add new columns or constraints to an existing table.
+
+`NULL` - Special value in SQL that represents missing or unknown data.
+
+`UPDATE tableName` - Edits a row in a table. 
+
+`UPDATE tableName
+SET columnName(s)` - Indicates the column that is to be edited during the `UPDATE`.
+
+`UPDATE tableName
+SET columnName(s)
+WHERE...` - Indicates which rows to update with the new column value.
+
+`DELETE FROM` - Deletes one or more rows from a table.
+
+```
+DELETE FROM cards 
+WHERE name IS NULL;
+```
+
+The above statement deletes all records in the cards table that have no name.
+
+`IS NULL` - Special SQL condition: returns `true` when a value is `NULL`,
+otherwise returns `false`. 
+
+### Constraints
+
+- `PRIMARY KEY` - Used to uniquely identify each record in a table. Ensures
+that the column, or combination of columns, contains **unique, non-null values**.
+- `UNIQUE` - Used to ensure that all values in a column (or combination of columns)
+are unique: that there is a different value for every row. 
+- `NOT NULL` - Ensures that a field **must contain a value**,
+and that it **cannot remain empty**.
+- `DEFAULT` - Used to assign a preset, default value to a column
+when no value is provided during an `INSERT` operation. 
+
+## Working with databases
+
+What is a database query?
+
+What is a general query?
+
+What is an aggregate function?
+
+How do you work with multiple tables in a database (at the same time?)
+
+How do we select multiple columns using the SELECT keyword? 
+
+`AS` - Allows you to rename a column or table using an alias. 
+
+When using aliases in SQLite, surround them with `'singleQuotes'`.
+
+When using aliases in PostgreSQL or other RDBMSs, `noQuotes` or `''doubleQuotes''`
+may be required, depending on the language.
+
+`DISTINCT` - Used to return unique values in the output by filtering out duplicate values.
+Helpful when we want to know which distinct values exist in a particular column.
+
+`SELECT DISTINCT cards FROM deck` - Returns only unique cards, ignoring duplicates.
+Useful when you have a TCG deck and want to find out how many unique cards
+there are in the deck. 
+
+`WHERE` - Restricts query results in order to obtain only the information we want.
+- Typically followed by a boolean expression, such as `level > 5`.
+This particular expression will filter results to only include cards
+with a level greater than 5. 

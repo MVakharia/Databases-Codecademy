@@ -213,4 +213,12 @@ there are in the deck.
 `WHERE` - Restricts query results in order to obtain only the information we want.
 - Typically followed by a boolean expression, such as `level > 5`.
 This particular expression will filter results to only include cards
-with a level greater than 5. 
+with a level greater than 5.4
+
+`LIKE` - Used with the `WHERE` clause to search for a specific pattern in a column.
+
+`_` - The wildcard character.
+
+`SELECT * FROM movies WHERE name LIKE 'Fant_stic'` -
+Searches for all movies starting with `Fant` and ending with `stic`
+with exactly one character in the middle.

@@ -217,8 +217,188 @@ with a level greater than 5.4
 
 `LIKE` - Used with the `WHERE` clause to search for a specific pattern in a column.
 
-`_` - The wildcard character.
+`_` - A wildcard character that represents exactly one character.
 
 `SELECT * FROM movies WHERE name LIKE 'Fant_stic'` -
 Searches for all movies starting with `Fant` and ending with `stic`
 with exactly one character in the middle.
+
+`%` - A wildcard character that represents zero or more characters.
+- Can be used before and/or after a pattern.
+
+`SELECT * 
+FROM movies
+WHERE name LIKE 'Avengers%';
+` - Filters the results set to only include movies that begin with the word `Avengers`.
+
+`SELECT * FROM cards WHERE effect LIKE '&spell counter&'` - 
+Filters the results set to only include cards with 'spell counter'
+in the effect text. Not case sensitive, so 'Spell Counter' and 'Spell counter'
+also work.
+
+`SELECT * FROM cards WHERE level IS NULL` -
+Filters results for all items where `level` is a null value.
+- In a set of YGO cards, this would return all cards without a Level:
+Spell cards, Trap cards, Xyz monsters, and Link monsters.
+
+`BETWEEN` - Used in a `WHERE` clause to filter results within a certain range.
+
+`SELECT *
+FROM deck
+WHERE level BETWEEN 4 AND 8` - Filters for cards with a level between 4 and 8. 
+
+`SELECT *
+FROM deck
+WHERE name BETWEEN 'A' AND 'K';` - 
+Filters for cards with names starting with the letters `A` through `J`,
+and for cards named `K`. 
+- This makes it an exclusive filter,
+as it's excluding cards with names beginning with K with more than one letter. 
+
+`AND` - Used with the `WHERE` operator to combine multiple conditions,
+returning `TRUE` if **both** conditions evaluate to `TRUE`. 
+
+`SELECT *
+FROM cards
+WHERE ATK BETWEEN 1500 AND 2000
+AND type = 'spellcaster';` - Returns cards with the type `spellcaster`
+with an ATK value between 1500 and 2000. 
+
+`OR` - Used with the `WHERE` operator to combine multiple conditions,
+returning `TRUE` if one or more conditions evaluate to `TRUE`.
+
+`SELECT *
+FROM cards
+WHERE attribute = 'spell'
+   OR attribute = 'trap';` - Returns all Spell cards and Trap cards.
+
+`ORDER BY` - Sorting operator. Used to sort alphabetically or numerically. 
+
+`SELECT *
+FROM cards
+ORDER BY name;` - Sorts all cards in the deck in alphabetical order by `name`.
+
+`DESC` - Used with `ORDER BY` to sort descending. 
+
+`ASC` - Used with `ORDER BY` to sort ascending. 
+
+`SELECT *
+FROM cards
+WHERE level > 4
+ORDER BY atk DESC;` - Sorts all cards with a level greater than 4,
+in descending order by the value of their ATK stats.
+
+`SELECT * FROM cards WHERE rank < 5 ORDER BY def ASC;` - 
+Sorts all cards with a rank less than 5, in ascending order
+by the value of their DEF stats. 
+
+`LIMIT` - Specify the maximum number of rows you'll see in the results set.
+Useful for when you're dealing with a dataset that has numbers of records
+in the 5 figures or higher.
+- Always goes at the very end of the query.
+
+`SELECT *
+FROM cards
+LIMIT 5;
+` - Shows us 5 cards.
+
+`CASE` - SQL's way of handling conditionals.
+- It's essentially SQL's version of a `switch` statement. 
+
+```
+SELECT name,
+ CASE
+  WHEN level > 6 THEN 'Requires two tributes to summon.'
+  WHEN level > 4 THEN 'Requires one tribute to summon.'
+  ELSE 'Requires no tributes.'
+ END
+FROM cards;
+```
+
+Above is a CASE block with oversimplified YGO logic.
+
+`CASE` - Placed at the start of a conditional block.
+
+`END` - When used with `CASE`, it ends a conditional block. 
+
+`WHEN` - The SQL equivalent of the keyword `case`, if `case` were within a `switch` block.
+
+`THEN` - Used with `WHEN` to contain the code that will execute
+when the condition of the `WHEN` is met.
+
+## Aggregate functions
+
+SQL queries can perform calculations on accessed raw data
+to answer specific data questions. 
+
+- Calculations performed on multiple rows of a table are called **aggregates**. 
+
+`COUNT()` counts the number of rows.
+
+`SUM(columnName)` is the sum of the values in a column. 
+
+`MAX(columnName)` is the largest value in a column. 
+
+`MIN(columnName)` is the smallest value in a column.
+
+`AVG(columnName)` is the average of the values in a column. 
+
+`ROUND(columnName, 'x')'` rounds the values in the column to `x` decimal places. 
+
+`SELECT COUNT(*) FROM cards;` - Counts the number of cards. 
+
+`SELECT SUM(downloads) FROM fake_apps;` -
+Counts the total number of downloads between all of the fake apps.
+
+`SELECT MAX(level) FROM cards;` - Returns the level of the highest level card.
+
+`SELECT MIN(level) FROM cards;` - Returns the level of the lowest level card.
+
+`SELECT AVG(atk) FROM cards;` - Returns the average ATK stat of all cards. 
+
+`SELECT ROUND(AVG(price), 2) FROM fake_apps;` - An operation nested within a query.
+We're rounding the average price to 2 decimal places.
+
+`GROUP BY` - Used with `SELECT` to arrange identical instances
+of data in a column into groups.
+
+`SELECT level, COUNT(*) FROM cards GROUP BY level;`:
+
+Say for example that we have a dataset with 5 Level 4 monsters,
+8 Level 5 monsters, and 10 Level 6 monsters.
+- The above query will return a table with two columns:
+one with a header of `level`, and one with a header of `count`.
+- There are three different levels, so the table will have three rows,
+one for each level.
+- On each row will be a level and a count.
+  - The first row will have two cells containing `4` (`level`) and `5` (`count`).
+  - What will the other two rows have?
+
+Using column reference numbers with `GROUP BY`:
+
+`SELECT category, 
+   price,
+   AVG(downloads)
+FROM fake_apps
+GROUP BY category, price;`
+
+The above can be written as:
+
+`SELECT category, 
+   price,
+   AVG(downloads)
+FROM fake_apps
+GROUP BY 1, 2;`
+
+`HAVING` - Limits the results of a query based on an aggregate property. 
+- Always comes after `GROUP BY` but before `ORDER BY` and `LIMIT`.
+
+Example:
+
+`SELECT price, 
+   ROUND(AVG(downloads)),
+   COUNT(*)
+FROM fake_apps
+GROUP BY price
+HAVING COUNT(*) > 10;` -
+Restricts the query to price points that have more than 10 apps.

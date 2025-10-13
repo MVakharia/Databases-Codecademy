@@ -543,14 +543,15 @@ The `CHECK` keyword
 
 `ADD CHECK`
 
-Using logic that might be applied in `WHERE` for our `CHECK` statements. 
+Using logic that might be applied in `WHERE` for our `CHECK` statements, such as:
+- `LIKE`
+- `OR`
+- `AND`
+- `IN`
 
 Making comparisons between columns within a table. 
 
+Applying constraints that apply to multiple columns. 
 
-
-
-
-
-
+Using `UNIQUE` constraints in SQL.
 

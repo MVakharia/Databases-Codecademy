@@ -617,8 +617,35 @@ What does `REFERENCES table (id) ON UPDATE RESTRICT;` do?
 
 `SET ROLE <test role>`
 
+`SET ROLE <superuser role>`
 
+`CREATE ROLE`
 
+`CREATE ROLE <name> WITH <list of permissions>`
 
+Permission names:
+- `SUPERUSER`
+- `CREATEROLE`
+- `CREATEDB`
+- `LOGIN`
+- `IN ROLE`
 
+`ALTER ROLE ... WITH CREATEDB`
 
+`CREATE USER`
+
+The difference between `CREATE USER` and `CREATE ROLE`,
+and where `WITH LOGIN` comes into it. 
+
+Using `GRANT` and `REVOKE` statements to modify permissions.
+
+The permissions `USAGE`, `CREATE`, and `DROP`.
+
+Granting `SELECT`, `UPDATE`, `DELETE`, and `INSERT`
+on specific tables as a table owner.
+
+`GRANT USAGE, CREATE ON SCHEMA decks TO playerOne;`
+
+`GRANT SELECT, UPDATE ON decks.mainDeck TO playerOne;`
+
+`REVOKE UPDATE ON decks.mainDeck FROM playerOne;`

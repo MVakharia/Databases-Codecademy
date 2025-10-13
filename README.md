@@ -333,7 +333,7 @@ to answer specific data questions.
 
 - Calculations performed on multiple rows of a table are called **aggregates**. 
 
-`COUNT()` counts the number of rows.
+`COUNT(columnName)` counts the number of rows.
 
 `SUM(columnName)` is the sum of the values in a column. 
 
@@ -400,5 +400,157 @@ Example:
    COUNT(*)
 FROM fake_apps
 GROUP BY price
-HAVING COUNT(*) > 10;` -
-Restricts the query to price points that have more than 10 apps.
+HAVING COUNT(*) > 10;` - Restricts the query to price points 
+that have more than 10 apps.
+
+`WHERE` filters rows, while `HAVING` filters groups. 
+
+Aggregate functions compute a single result set from a set of values. 
+
+## Multiple Tables
+
+To efficiently store data, it can be spread across multiple tables.
+
+For example, we have a database of Steam users. 
+Some users have active subscriptions on Steam,
+and those subscriptions have their own information, 
+like terms, prices, and the currency they're being paid for in. 
+
+If we create one table containing every user with all of their subscriptions
+and all of their personal information, there will be a lot of duplicates. 
+- If a user has multiple subscriptions, their name will be listed multiple times,
+once for each subscription.
+- If the same subscription type is subscribed to by multiple users,
+the subscription price and description will be repeated once for each user. 
+
+
+If instead we create multiple tables, 
+where the first table contains only the orders placed to start the subscription, 
+another table contains the subscriptions,
+and another table for the usernames, we will get a complete picture
+while dealing with 3 individually manageable tables. 
+
+`JOIN` is used to combine tables manually. 
+
+- Do some practice drills using the `JOIN` and `ON` keywords.
+
+What is an inner join? Do practice drills of inner joins:
+- We have two tables: `orders` and `customers`.
+The `customers` table is out of date: it is missing an entry.
+Meanwhile, the `orders` table has an entry involving the missing customer.
+Join these two tables and see what happens.
+
+![image](https://content.codecademy.com/courses/learn-sql/multiple-tables/inner-join.gif)
+
+`LEFT JOIN` allows you to combine two tables and keep some of the unmatched rows. 
+- Specifically, it will keep all rows from the first table,
+regardless of whether there is a matching row on the second table.
+
+A **primary key** *uniquely identifies* each record in a table. 
+
+It also **ensures data integrity** by **preventing duplicate
+or null values** in one or more specified columns.
+
+Imagine that you have three tables: `Monsters`, `Spells` and `Traps`.
+Each table has a column containing the cards' 8-digit ID numbers.
+
+- In the `Monsters` table, the column header is `monster_id`. 
+- In the `Spells` table, the column header is `spell_id`.
+- In the `Traps` table, the column header is `trap_id`.
+
+These special columns are called **primary keys**. 
+
+Requirements of a primary key:
+
+- None of the values in the column can be `NULL`.
+- Each value in the column must be unique.
+- There must be only one primary key column per table. 
+  - A table cannot have multiple primary key columns. 
+
+When the primary key for one table appears in another table,
+it is called a **foreign key**.
+
+`CROSS JOIN`
+
+`UNION`
+
+`WITH`
+
+## What is a database schema?
+
+## Advanced PostgreSQL
+
+### How do I make sure my database stays intact?
+
+Data types in SQL
+
+`NOT NULL` constraints
+
+`UNIQUE` constraints
+
+`PRIMARY KEY` constraints
+
+`CHECK` constraints
+
+`FOREIGN KEY` constraints
+
+How to design a PostgreSQL database schema, with a 
+focus on data integrity and validation.
+
+Specifying data types in a `CREATE TABLE` statement to 
+ensure valid data in PostgreSQL.
+
+Data types:
+
+- `integer`
+- `varchar`
+- `boolean`
+- `date`
+- `numeric`
+- `time`
+
+Data types alone are not enough to protect data integrity.
+
+Type casting can lead to unexpected results. 
+
+Use additional constraints, like `CHECK`, `NOT NULL`, and regex validation
+to catch edge cases and ensure data integrity. 
+
+Use `NOT NULL` constraints to **prevent missing values** in columns,
+ensuring data completeness:
+- Having `NULL` values in certain columns where there should be values
+can make your data unreliable or unusable.
+- `NOT NULL` constraints are defined in a `CREATE TABLE` statement. 
+
+Challenge: Do practice drills with `NOT NULL` and `INSERT INTO`
+and see what errors pop up when you perform the latter with incomplete data. 
+
+`ALTER TABLE` - Add or remove constraints from existing tables. 
+
+- We use `ALTER TABLE` after we create a table: we realise
+that it could do with additional constraints,
+or that some constraints are unnecessary or are even preventing
+us from inserting data that we need to insert. 
+
+Do some practice drills with the following:
+- `ALTER TABLE`
+- `UPDATE`
+- `SET`
+- `ALTER COLUMN`
+
+The `CHECK` keyword
+- Can be added in both `CREATE TABLE` and `ALTER TABLE`.
+
+`ADD CHECK`
+
+Using logic that might be applied in `WHERE` for our `CHECK` statements. 
+
+Making comparisons between columns within a table. 
+
+
+
+
+
+
+
+

@@ -555,3 +555,70 @@ Applying constraints that apply to multiple columns.
 
 Using `UNIQUE` constraints in SQL.
 
+`ADD UNIQUE`
+
+`ADD PRIMARY KEY`
+
+`PRIMARY KEY` - Imagine simultaneously enforcing `UNIQUE` and `NOT NULL`
+on a column. It's something like that.
+
+`INSERT INTO`
+
+`FOREIGN KEY`
+
+`ADD FOREIGN KEY`
+
+`REFERENCES`
+
+How do we get a `violates foreign key constraint` error message?
+
+Foreign keys - cascading changes
+
+What does `REFERENCES table (id) ON DELETE RESTRICT;` do?
+What does `REFERENCES table (id) ON UPDATE RESTRICT;` do?
+
+`CASCADE`
+
+`ON UPDATE CASCADE`
+
+`ON DELETE CASCADE`
+
+`DELETE FROM ... WHERE`
+
+### Database permissions
+
+`current_user`
+
+`postgres` user
+
+`SELECT current_user`
+
+`superuser`
+
+`ccuser`
+
+`pg_catalog.pg_roles`
+
+`information_schema.table_privileges`
+
+`grantee`
+
+`usename`
+
+`usecreatedb`
+
+`usesuper`
+
+`privilege_type`
+
+`grantor`
+
+`SET ROLE`
+
+`SET ROLE <test role>`
+
+
+
+
+
+

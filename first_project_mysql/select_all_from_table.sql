@@ -4,4 +4,4 @@
 
 --SELECT * FROM city;
 
--- SELECT * FROM actor;
+SELECT * FROM actor;

@@ -4,6 +4,10 @@
     <file url="file://$PROJECT_DIR$/learn_0.sql" dialect="SQLite" />
     <file url="file://$PROJECT_DIR$/select_all_from_table.sql" dialect="SQLite" />
     <file url="file://$PROJECT_DIR$/select_columns_from_table.sql" dialect="SQLite" />
+    <file url="file://$PROJECT_DIR$/select_count_from_table.sql" dialect="SQLite" />
+    <file url="file://$PROJECT_DIR$/select_distinct_from_table.sql" dialect="SQLite" />
+    <file url="file://$PROJECT_DIR$/select_from_table_order_by.sql" dialect="SQLite" />
+    <file url="file://$PROJECT_DIR$/select_from_where_like.sql" dialect="SQLite" />
     <file url="PROJECT" dialect="SQLite" />
   </component>
 </project>
